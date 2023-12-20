@@ -64,9 +64,18 @@ const updateContact = asyncHandler(async (req,res) => {
 //@desc delete contact
 //@route GET /api/contacts:id
 //@access public
-const deleteContact = asyncHandler(async (req,res) => {
-    res.status(200).json({message: `delete contact $${req.params.id}`});
-})
+const deleteContact = asyncHandler(async (req, res) => {
+    const contact = await Contact.findById(req.params.id);
+
+    if (!contact) {
+        // Change the status code to 404 and send a JSON response for consistency
+        return res.status(404).json({ error: "Contact not found" });
+    }
+
+    // Contact found, proceed with deletion
+    await contact.remove();
+    res.status(200).json({ message: `Deleted contact ${req.params.id}` });
+});
 
 
 
@@ -79,5 +88,4 @@ module.exports = {
     getContact,
     updateContact,
     deleteContact
-
 }
