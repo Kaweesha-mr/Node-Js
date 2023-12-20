@@ -1,14 +1,16 @@
+const asyncHandler = require("express-async-handler")
+
 //@desc get all contacts
 //@route GET /api/contacts
 //@access public
-const getContacts = (req,res) => {
+const getContacts = asyncHandler(async (req,res) => {
     res.status(200).json({message: "get all "});
-}
+})
 
 //@desc create new contact
 //@route POST /api/contacts
 //@access public
-const createContact = (req,res) => {
+const createContact = asyncHandler(async (req,res) => {
     const {name,email,phone} = req.body;
 
     if(!name || !email || !phone){
@@ -17,35 +19,35 @@ const createContact = (req,res) => {
     }
 
     res.status(201).json({message: "new contact created "});
-}
+})
 
 
 //@desc create new contact
 //@route GET /api/contacts:id
 //@access public
-const getContact = (req,res) => {
+const getContact = asyncHandler(async (req,res) => {
     res.status(200).json({message: `get from ${req.params.id}`});
-}
+})
 
 //@desc update contact
 //@route GET /api/contacts:id
 //@access public
-const updateContact = (req,res) => {
+const updateContact = asyncHandler(async (req,res) => {
     res.status(200).json({message: `update contact ${req.params.id}`});
-}
+})
 
 //@desc delete contact
 //@route GET /api/contacts:id
 //@access public
-const deleteContact = (req,res) => {
+const deleteContact = asyncHandler(async (req,res) => {
     res.status(200).json({message: `delete contact $${req.params.id}`});
-}
+})
 
 
 
 
 
-//export this becouse so that we can import it somewhere
+//export this because so that we can import it somewhere
 module.exports = {
     getContacts,
     createContact,
