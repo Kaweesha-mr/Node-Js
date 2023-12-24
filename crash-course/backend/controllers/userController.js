@@ -3,6 +3,10 @@ const bcrypt = require("bcrypt")
 //to use model here we have to import the created model
 const User = require("../models/userModel")
 
+
+
+const jwt = require("jsonwebtoken")
+
 //@desc register user
 //@route POST /api/users/register
 //@access public
@@ -56,9 +60,33 @@ const registerUser = asyncHandler(async (req,res) => {
 //@route POST /api/users/register
 //@access public
 const loginUser = asyncHandler(async (req,res) => {
-    res.json({
-        message:"user successfully login"
-    });
+
+    const {email,password} = req.body;
+
+    if(!email || !password){
+        req.status(400);
+        throw new Error("All Fields are mandatory");
+    }
+
+    const user = await User.findOne({email});
+
+    if(user && (await bcrypt.compare(password, user.password))){
+        const accessToken = jwt.sign({
+            //payload which will embed in token
+            user:{
+                username : user.username,
+                email: user.email,
+                id: user.id,
+            },
+        },
+            process.env.ACCESS_TOKEN_SECRET,
+            {expiresIn: "1m"}
+        )
+        res.status(200).json({accessToken});
+    }else {
+        res.status(401)
+        throw new Error("Email or password is not valid")
+    }
 })
 
 //@desc current user
