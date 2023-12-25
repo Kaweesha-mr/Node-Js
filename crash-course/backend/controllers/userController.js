@@ -93,9 +93,9 @@ const loginUser = asyncHandler(async (req,res) => {
 //@route POST /api/users/current
 //@access private
 const currentUser = asyncHandler(async (req,res) => {
-    res.json({
-        message:"current user details exposed"
-    })
+    res.json(
+        req.user
+    )
 } )
 
 module.exports = {
