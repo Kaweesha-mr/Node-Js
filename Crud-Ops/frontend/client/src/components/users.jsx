@@ -14,9 +14,8 @@ function Users() {
 
     return (
         <div className="d-flex vh-100 bg-primary justify-content-center align-items-center">
-
             <div className="w-75 bg-white rounded p-3">
-                <Button className={"btn btn-success"}> hellpo </Button>
+                <Link to="/create" className="btn btn-success"> Add User </Link>
                 <table className="table table-striped table-bordered">
                     <thead className="thead-dark">
                     <tr>
