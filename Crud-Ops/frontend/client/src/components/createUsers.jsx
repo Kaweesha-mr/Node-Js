@@ -1,24 +1,29 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateUsers() {
 
     const [Name, setName] = useState('')
     const [Email, setEmail] = useState('')
     const [Age, setAge] = useState('')
+    const navigate = useNavigate();
 
     /**
      * Handles the form submission for creating a user.
      * @param {Event} e - The form submission event.
      * @returns {void}
      */
-    
+
+
     const submit = (e) => {
         e.preventDefault();
         axios.post("http://localhost:3001/createUser", { Name, Email, Age })
-
-            .then(result => console.log(result))
+            .then((result) =>{ 
+                console.log(result)
+                navigate('/')
+            })
             .catch(err => console.log(err));
     }
 
