@@ -1,5 +1,5 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Link} from "react-router-dom";
 
@@ -32,8 +32,8 @@ function Users() {
                             <td>{user.email}</td>
                             <td>{user.age}</td>
                             <td>
-                                <Button variant="primary">Edit</Button>{" "}
-                                <Button variant="danger">Delete</Button>
+                                <Link to={'/update'} variant="primary" className="btn btn-success">Edit</Link>
+                                <Link to={'/delete'} variant="danger" className="btn btn-danger">Delete</Link>
                             </td>
                         </tr>
                     ))}
