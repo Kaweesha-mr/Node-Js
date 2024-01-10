@@ -60,6 +60,14 @@ app.post('/createUser', (req, res) => {
         .then(user => res.json(user))
         .catch(err => res.status(400).json('Error: ' + err));
         });
+
+
+    app.delete('/deleteUser/:id', (req, res) => {
+        const id = req.params.id;
+        UserModel.findByIdAndDelete(id)
+        .then(user => res.json(user))
+        .catch(err => res.status(400).json('Error: ' + err));
+        });
   
 
 app.listen(3001, () => {
