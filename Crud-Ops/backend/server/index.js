@@ -32,11 +32,34 @@ app.post('/createUser', (req, res) => {
   });
 
 
+
+
+
   app.get('/',(req,res) => {
     UserModel.find()
     .then(user => res.json(user))
     .catch(err => res.status(400).json('Error: ' + err));
   })
+
+  app.get('/getUser/:id',(req,res) => {
+    const id = req.params.id;
+    UserModel.findById(id)
+    .then(user => res.json(user))
+    .catch(err => res.status(400).json('Error: ' + err));
+    })
+
+    app.put('/updateUser/:id', (req, res) => {
+        const id = req.params.id;
+        UserModel.findByIdAndUpdate(
+            {_id: id},
+            {name: req.body.name,
+            email: req.body.email,
+            age: req.body.age}
+    
+        )
+        .then(user => res.json(user))
+        .catch(err => res.status(400).json('Error: ' + err));
+        });
   
 
 app.listen(3001, () => {
