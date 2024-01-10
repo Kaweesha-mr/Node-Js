@@ -5,21 +5,18 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CreateUsers() {
 
-    const [Name, setName] = useState('')
-    const [Email, setEmail] = useState('')
-    const [Age, setAge] = useState('')
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [age, setAge] = useState()
     const navigate = useNavigate();
 
-    /**
-     * Handles the form submission for creating a user.
-     * @param {Event} e - The form submission event.
-     * @returns {void}
-     */
 
 
     const submit = (e) => {
         e.preventDefault();
-        axios.post("http://localhost:3001/createUser", { Name, Email, Age })
+
+        console.log(name, email, age);
+        axios.post("http://localhost:3001/createUser",  {name, age,email} )
             .then((result) =>{ 
                 console.log(result)
                 navigate('/')

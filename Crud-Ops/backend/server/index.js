@@ -24,11 +24,19 @@ mongoose.connect('mongodb+srv://admin:admin@crudnodejs.lnhklt5.mongodb.net/?retr
 });
 // !database connection ended
 
-app.post('/createUser', (req, res) => {
+app.post('/createUser', (req, res) => {  
+    
       UserModel.create(req.body)
       .then(user => res.json(user))
       .catch(err => res.status(400).json('Error: ' + err));
   });
+
+
+  app.get('/',(req,res) => {
+    UserModel.find()
+    .then(user => res.json(user))
+    .catch(err => res.status(400).json('Error: ' + err));
+  })
   
 
 app.listen(3001, () => {

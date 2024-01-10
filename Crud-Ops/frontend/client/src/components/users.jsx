@@ -1,16 +1,17 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 function Users() {
-    const [users, setUsers] = useState([
-        {
-            name: "Rahul",
-            email: "Kawees@gmail.com",
-            age: 20,
-        },
-    ]);
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        axios.get("http://localhost:3001")
+        .then((result)=> setUsers(result.data))
+        .catch((err)=> console.log(err))
+    },[])
 
     return (
         <div className="d-flex vh-100 bg-primary justify-content-center align-items-center">
@@ -32,8 +33,8 @@ function Users() {
                             <td>{user.email}</td>
                             <td>{user.age}</td>
                             <td>
-                                <Link to={'/update'} variant="primary" className="btn btn-success">Edit</Link>
-                                <Link to={'/delete'} variant="danger" className="btn btn-danger">Delete</Link>
+                                <Link to={`/update/${user._id}`} variant="primary" className="btn btn-success">Edit</Link>
+                                <Link to={`/delete/${user._id}`} variant="danger" className="btn btn-danger">Delete</Link>
                             </td>
                         </tr>
                     ))}
